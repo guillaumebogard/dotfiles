@@ -1,8 +1,3 @@
-local M = {}
+-- Nvim Tree config
 
-M.setup = function()
-    -- Nvim Tree config
-
-end
-
-return M
+require('nvim-tree').setup()

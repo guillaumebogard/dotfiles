@@ -1,4 +1,5 @@
--- Main entry point for Neovim configuration
+-- Main entry point for Neovim config
 
 require('plugins')
 require('settings')
+require('remaps')

@@ -1,4 +1,4 @@
--- Needs to be loaded after plugins config, but before mappings.
+-- Setting options
 
 -- See `:help vim.o`
 
@@ -9,14 +9,14 @@ vim.opt.shiftwidth    = 4    -- Defines the number of spaces to use for each ste
 vim.opt.expandtab     = true -- Converts tabs to spaces, providing consistent indentation regardless of the editor/viewer.
 
 -- Search
-vim.opt.hlsearch      = true -- All search occurrences are highlighted.
-vim.opt.incsearch     = true -- Incremental search; shows partial matches for a pattern as you type.
-vim.opt.ignorecase    = true -- Makes all searches case-insensitive. Searching for 'example', 'Example', 'EXAMPLE', etc., will yield the same results.
-vim.opt.smartcase     = true -- Overrides `ignorecase` if the search pattern contains uppercase letters. If you search for 'Example', it will be case-sensitive, but 'example' will be case-insensitive.
+vim.opt.hlsearch      = false -- All search occurrences are highlighted.
+vim.opt.incsearch     = true  -- Incremental search; shows partial matches for a pattern as you type.
+vim.opt.ignorecase    = true  -- Makes all searches case-insensitive. Searching for 'example', 'Example', 'EXAMPLE', etc., will yield the same results.
+vim.opt.smartcase     = true  -- Overrides `ignorecase` if the search pattern contains uppercase letters. If you search for 'Example', it will be case-sensitive, but 'example' will be case-insensitive.
 
 -- Display
 vim.wo.number         = true    -- Enables absolute line numbering. Shows the actual line number for each line in the file.
-vim.wo.relativenumber = true    -- Displays line numbers relative to the current line. The line you're on is numbered 0, and the lines above and below are numbered relative to this line (e.g., 1, 2, 3, ...).
+vim.wo.relativenumber = false   -- Displays line numbers relative to the current line. The line you're on is numbered 0, and the lines above and below are numbered relative to this line (e.g., 1, 2, 3, ...).
 vim.o.scrolloff       = 7       -- The minimum number of lines to keep above and below the cursor when scrolling.
 
 -- Mouse

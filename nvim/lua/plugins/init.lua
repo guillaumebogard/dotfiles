@@ -1,3 +1,5 @@
+-- Plugins
+
 -- `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -14,12 +16,75 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
--- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- NOTE: Must happen before plugins are required (otherwise wrong leader will be used).
+vim.g.mapleader          = ' '
+vim.g.maplocalleader     = ' '
+
+-- Disable netrw (default tree by Vim/Neovim) for nvim-tree.
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
 
 require('lazy').setup({
-    -- LSP
+
+    -- Alpha-nvim
+    -- Programmable greeter.
+    {
+        'goolord/alpha-nvim',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        },
+        config = function ()
+            require('plugins/config/alpha-nvim')
+        end
+    },
+
+    -- Nvim Tree
+    -- File explorer tree.
+    {
+        'nvim-tree/nvim-tree.lua',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        },
+        config = function()
+            require('plugins/config/nvim-tree')
+        end,
+    },
+
+    -- Tokyonight
+    -- Color scheme.
+    {
+        'folke/tokyonight.nvim',
+        config = function()
+            vim.cmd [[colorscheme tokyonight-night]]
+        end,
+    },
+
+    -- Lua line
+    -- Status line.
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons'
+        },
+        config = function()
+            require('plugins/config/lualine')
+        end,
+    },
+
+    -- Barbecue
+    -- File & cursor status line.
+    {
+        "utilyre/barbecue.nvim",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons",
+        },
+        opts = {},
+    },
+
+
+    -- Nvim LSP Config
+    -- LSP Configuration & Plugins.
     {
         'neovim/nvim-lspconfig',                 -- LSP Configuration & Plugins
         dependencies = {
@@ -34,28 +99,48 @@ require('lazy').setup({
             },
             'folke/neodev.nvim',                 -- Additional lua configuration
         },
-    },
-    -- Github Copilot
-    -- Integrates GitHub Copilot.
-    {
-        'github/copilot.vim',
         config = function()
-            require('plugins/config/copilot').setup()
+            require('plugins/config/nvim-lspconfig')
         end,
     },
-    -- Nvim Tree
-    -- File explorer tree
+
+    -- Nvim Treesitter
+    -- Syntax highlighting.
     {
-        'kyazdani42/nvim-tree.lua',
-        dependencies = {
-            'kyazdani42/nvim-web-devicons',
-        },
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
         config = function()
-            require('plugins/config/nvim-tree').setup()
+            require('plugins/config/nvim-treesitter')
         end,
     },
+
+    -- Which Key
+    -- Shows keybindings in popup.
+    {
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
+        opts = {},
+    },
+
+    -- Mapx
+    -- Map keys with ease.
+    {
+        'b0o/mapx.nvim',
+    },
+
+    -- Comment
+    -- Comment lines with `gc`.
+    {
+        'numToStr/Comment.nvim',
+    },
+
+
     -- Telescope
     -- Highly extendable fuzzy finder.
+    --
+    -- Optional Dependencies:
+    --  - `fd` (For file search)
+    --  - `ripgrep` (For grep functionality)
     {
         'nvim-telescope/telescope.nvim',
         dependencies = {
@@ -69,16 +154,13 @@ require('lazy').setup({
             },
         },
         config = function()
-            require('plugins/config/telescope').setup()
+            require('plugins/config/telescope')
         end,
     },
-    -- Dracula
-    -- Purple color scheme
+
+    -- Github Copilot
+    -- Integrates GitHub Copilot.
     {
-        'dracula/vim',
-        as = 'dracula',
-        config = function()
-            require('plugins/config/dracula').setup()
-        end,
+        'github/copilot.vim',
     },
 })
